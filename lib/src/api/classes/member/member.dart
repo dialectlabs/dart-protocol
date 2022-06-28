@@ -1,5 +1,5 @@
 import 'package:borsh_annotation/borsh_annotation.dart';
-import 'package:dialect_protocol/src/api/borsh/borsh_extensions.dart';
+import 'package:dialect_web3/src/api/borsh/borsh_extensions.dart';
 import 'package:solana/solana.dart';
 
 part 'member.g.dart';

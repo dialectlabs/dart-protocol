@@ -2,6 +2,28 @@
 
 part of 'metadata.dart';
 
+Metadata _$MetadataFromBorsh(Uint8List data) {
+  final reader = BinaryReader(data.buffer.asByteData());
+
+  return const BMetadata().read(reader);
+}
+
+class BMetadata implements BType<Metadata> {
+  const BMetadata();
+
+  @override
+  Metadata read(BinaryReader reader) {
+    return Metadata(
+      subscriptions: const BArray(BSubscription()).read(reader),
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, Metadata value) {
+    writer.writeStruct(value.toBorsh());
+  }
+}
+
 // **************************************************************************
 // BorshSerializableGenerator
 // **************************************************************************
@@ -19,31 +41,10 @@ mixin _$Metadata {
 }
 
 class _Metadata extends Metadata {
+  @override
+  final List<Subscription> subscriptions;
+
   _Metadata({
     required this.subscriptions,
   }) : super._();
-
-  final List<Subscription> subscriptions;
-}
-
-class BMetadata implements BType<Metadata> {
-  const BMetadata();
-
-  @override
-  void write(BinaryWriter writer, Metadata value) {
-    writer.writeStruct(value.toBorsh());
-  }
-
-  @override
-  Metadata read(BinaryReader reader) {
-    return Metadata(
-      subscriptions: const BArray(BSubscription()).read(reader),
-    );
-  }
-}
-
-Metadata _$MetadataFromBorsh(Uint8List data) {
-  final reader = BinaryReader(data.buffer.asByteData());
-
-  return const BMetadata().read(reader);
 }

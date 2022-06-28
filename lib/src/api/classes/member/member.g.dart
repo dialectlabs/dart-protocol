@@ -2,6 +2,29 @@
 
 part of 'member.dart';
 
+Member _$MemberFromBorsh(Uint8List data) {
+  final reader = BinaryReader(data.buffer.asByteData());
+
+  return const BMember().read(reader);
+}
+
+class BMember implements BType<Member> {
+  const BMember();
+
+  @override
+  Member read(BinaryReader reader) {
+    return Member(
+      publicKey: const BPublicKey().read(reader),
+      scopes: const BFixedArray(2, BBool()).read(reader),
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, Member value) {
+    writer.writeStruct(value.toBorsh());
+  }
+}
+
 // **************************************************************************
 // BorshSerializableGenerator
 // **************************************************************************
@@ -21,34 +44,13 @@ mixin _$Member {
 }
 
 class _Member extends Member {
+  @override
+  final Ed25519HDPublicKey publicKey;
+
+  @override
+  final List<bool> scopes;
   _Member({
     required this.publicKey,
     required this.scopes,
   }) : super._();
-
-  final Ed25519HDPublicKey publicKey;
-  final List<bool> scopes;
-}
-
-class BMember implements BType<Member> {
-  const BMember();
-
-  @override
-  void write(BinaryWriter writer, Member value) {
-    writer.writeStruct(value.toBorsh());
-  }
-
-  @override
-  Member read(BinaryReader reader) {
-    return Member(
-      publicKey: const BPublicKey().read(reader),
-      scopes: const BFixedArray(2, BBool()).read(reader),
-    );
-  }
-}
-
-Member _$MemberFromBorsh(Uint8List data) {
-  final reader = BinaryReader(data.buffer.asByteData());
-
-  return const BMember().read(reader);
 }

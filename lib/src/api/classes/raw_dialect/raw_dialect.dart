@@ -1,7 +1,7 @@
 import 'package:borsh_annotation/borsh_annotation.dart';
-import 'package:dialect_protocol/src/api/borsh/borsh_extensions.dart';
-import 'package:dialect_protocol/src/api/classes/member/member.dart';
-import 'package:dialect_protocol/src/api/classes/raw_cyclic_byte_buffer/raw_cyclic_byte_buffer.dart';
+import 'package:dialect_web3/src/api/borsh/borsh_extensions.dart';
+
+import '../classes.dart';
 
 part 'raw_dialect.g.dart';
 

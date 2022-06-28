@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
-import 'package:dialect_protocol/src/core/constants.dart';
+import 'package:dialect_web3/src/core/constants.dart';
 import 'package:solana/encoder.dart';
 import 'package:solana/solana.dart';
 
