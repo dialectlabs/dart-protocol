@@ -206,83 +206,83 @@ Future<message.Message?> sendMessage(
   return d.dialect.messages[0];
 }
 
-Future<Metadata> _createMetadata(
-    {required sol.RpcClient client,
-    required ProgramAccount program,
-    required KeypairWallet user}) async {
-  final addressResult =
-      await _getMetadataProgramAddress(program, user.publicKey);
-  final tx = await client.signAndSendTransaction(
-      sol.Message(instructions: [
-        DialectInstructions.createMetadata(
-            user.publicKey,
-            addressResult.publicKey,
-            addressResult.nonce,
-            sol.Ed25519HDPublicKey.fromBase58(program.pubkey))
-      ]),
-      user.signers);
-  await waitForFinality(client: client, transactionStr: tx);
-  return await _getMetadata(
-      client, program, KeypairWallet.fromKeypair(user.keyPair), null);
-}
+// Future<Metadata> _createMetadata(
+//     {required sol.RpcClient client,
+//     required ProgramAccount program,
+//     required KeypairWallet user}) async {
+//   final addressResult =
+//       await _getMetadataProgramAddress(program, user.publicKey);
+//   final tx = await client.signAndSendTransaction(
+//       sol.Message(instructions: [
+//         DialectInstructions.createMetadata(
+//             user.publicKey,
+//             addressResult.publicKey,
+//             addressResult.nonce,
+//             sol.Ed25519HDPublicKey.fromBase58(program.pubkey))
+//       ]),
+//       user.signers);
+//   await waitForFinality(client: client, transactionStr: tx);
+//   return await _getMetadata(
+//       client, program, KeypairWallet.fromKeypair(user.keyPair), null);
+// }
 
-Future _deleteMetadata(
-    sol.RpcClient client, ProgramAccount program, KeypairWallet user) async {
-  final addressResult =
-      await _getMetadataProgramAddress(program, user.publicKey);
-  final tx = await client.signAndSendTransaction(
-      sol.Message(instructions: [
-        DialectInstructions.closeMetadata(
-            user.publicKey,
-            addressResult.publicKey,
-            addressResult.nonce,
-            sol.Ed25519HDPublicKey.fromBase58(program.pubkey))
-      ]),
-      user.signers);
-  await waitForFinality(client: client, transactionStr: tx);
-}
+// Future _deleteMetadata(
+//     sol.RpcClient client, ProgramAccount program, KeypairWallet user) async {
+//   final addressResult =
+//       await _getMetadataProgramAddress(program, user.publicKey);
+//   final tx = await client.signAndSendTransaction(
+//       sol.Message(instructions: [
+//         DialectInstructions.closeMetadata(
+//             user.publicKey,
+//             addressResult.publicKey,
+//             addressResult.nonce,
+//             sol.Ed25519HDPublicKey.fromBase58(program.pubkey))
+//       ]),
+//       user.signers);
+//   await waitForFinality(client: client, transactionStr: tx);
+// }
 
-Future<List<DialectAccount>> _getDialects(
-    sol.RpcClient client, ProgramAccount program, KeypairWallet user,
-    {EncryptionProps? encryptionProps}) async {
-  final metadata = await _getMetadata(client, program, user, null);
-  final enbaledSubscriptions =
-      metadata.subscriptions.where((element) => element.enabled);
-  final dialects = await Future.wait(enbaledSubscriptions
-      .map((e) => getDialect(client, program, e.pubKey, encryptionProps)));
-  dialects.sort((d1, d2) =>
-      d2.dialect.lastMessageTimestamp - d1.dialect.lastMessageTimestamp);
-  return dialects;
-}
+// Future<List<DialectAccount>> _getDialects(
+//     sol.RpcClient client, ProgramAccount program, KeypairWallet user,
+//     {EncryptionProps? encryptionProps}) async {
+//   final metadata = await _getMetadata(client, program, user, null);
+//   final enbaledSubscriptions =
+//       metadata.subscriptions.where((element) => element.enabled);
+//   final dialects = await Future.wait(enbaledSubscriptions
+//       .map((e) => getDialect(client, program, e.pubKey, encryptionProps)));
+//   dialects.sort((d1, d2) =>
+//       d2.dialect.lastMessageTimestamp - d1.dialect.lastMessageTimestamp);
+//   return dialects;
+// }
 
-Future<Metadata> _getMetadata(sol.RpcClient client, ProgramAccount program,
-    KeypairWallet user, KeypairWallet? otherParty) async {
-  var shouldDecrypt = false;
-  var userIsKeypair = user.isKeypair;
-  var otherPartyIsKeypair = otherParty != null && otherParty.isKeypair;
+// Future<Metadata> _getMetadata(sol.RpcClient client, ProgramAccount program,
+//     KeypairWallet user, KeypairWallet? otherParty) async {
+//   var shouldDecrypt = false;
+//   var userIsKeypair = user.isKeypair;
+//   var otherPartyIsKeypair = otherParty != null && otherParty.isKeypair;
 
-  if (otherParty != null && (userIsKeypair || otherPartyIsKeypair)) {
-    shouldDecrypt = true;
-  }
-  final addressResult = await _getMetadataProgramAddress(
-      program,
-      userIsKeypair
-          ? (await user.keyPair!.extractPublicKey())
-          : user.publicKey);
-  final metadata =
-      await fetchAccount(client, addressResult.publicKey, Metadata.fromBorsh);
-  return Metadata(
-      subscriptions: metadata.subscriptions
-          .where((element) => element.pubKey != DEFAULT_PUBKEY)
-          .toList());
-}
+//   if (otherParty != null && (userIsKeypair || otherPartyIsKeypair)) {
+//     shouldDecrypt = true;
+//   }
+//   final addressResult = await _getMetadataProgramAddress(
+//       program,
+//       userIsKeypair
+//           ? (await user.keyPair!.extractPublicKey())
+//           : user.publicKey);
+//   final metadata =
+//       await fetchAccount(client, addressResult.publicKey, Metadata.fromBorsh);
+//   return Metadata(
+//       subscriptions: metadata.subscriptions
+//           .where((element) => element.pubKey != DEFAULT_PUBKEY)
+//           .toList());
+// }
 
-Future<ProgramAddressResult> _getMetadataProgramAddress(
-    ProgramAccount program, sol.Ed25519HDPublicKey user) {
-  return findProgramAddressWithNonce(
-      seeds: [utf8.encode('metadata'), utf8.encode(user.toBase58())],
-      programId: sol.Ed25519HDPublicKey.fromBase58(program.pubkey));
-}
+// Future<ProgramAddressResult> _getMetadataProgramAddress(
+//     ProgramAccount program, sol.Ed25519HDPublicKey user) {
+//   return findProgramAddressWithNonce(
+//       seeds: [utf8.encode('metadata'), utf8.encode(user.toBase58())],
+//       programId: sol.Ed25519HDPublicKey.fromBase58(program.pubkey));
+// }
 
 class FindDialectQuery {
   sol.Ed25519HDPublicKey? userPk;

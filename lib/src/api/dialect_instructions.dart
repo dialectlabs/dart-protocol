@@ -176,7 +176,7 @@ class DialectInstructions {
   }
 }
 
-extension encoder on int {
+extension Encoder on int {
   List<int> intToBytes([int bitSize = 32]) {
     return List.from(
         hex.decode(toRadixString(16).padLeft(2 * bitSize ~/ 8, '0')).reversed);
