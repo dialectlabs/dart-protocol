@@ -1,5 +1,5 @@
 import 'package:borsh_annotation/borsh_annotation.dart';
-import 'package:dialect_protocol/src/api/classes/subscription/subscription.dart';
+import 'package:dialect_web3/src/api/classes/subscription/subscription.dart';
 
 part 'metadata.g.dart';
 

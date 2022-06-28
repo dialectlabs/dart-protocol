@@ -1,5 +1,5 @@
-import 'package:dialect_protocol/src/api/classes/member/member.dart';
-import 'package:dialect_protocol/src/api/classes/message/message.dart' as msg;
+import 'package:dialect_web3/dialect_web3.dart';
+import 'package:dialect_web3/src/api/classes/message/message.dart' as msg;
 import 'package:solana/solana.dart';
 
 class Dialect {

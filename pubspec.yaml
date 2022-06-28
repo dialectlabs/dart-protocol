@@ -1,4 +1,4 @@
-name: dialect_protocol
+name: dialect_web3
 description: A simple dart wrapper for Dialect's smart messaging protocol on Solana
 version: 0.1.0
 homepage: https://github.com/dialectlabs/dart-protocol
@@ -17,6 +17,8 @@ dependencies:
   borsh: ^0.3.0+3
   borsh_annotation: ^0.3.1+1
   build_runner: ^2.1.11
+  convert: ^3.0.2
+  crypto: ^3.0.2
   pinenacl: ^0.3.4
   recase: ^4.0.0
   solana: ^0.25.0

@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
-import 'package:dialect_protocol/src/core/constants.dart';
+import 'package:dialect_web3/src/core/constants.dart';
 import 'package:solana/encoder.dart';
 import 'package:solana/solana.dart';
 
@@ -176,7 +176,7 @@ class DialectInstructions {
   }
 }
 
-extension encoder on int {
+extension Encoder on int {
   List<int> intToBytes([int bitSize = 32]) {
     return List.from(
         hex.decode(toRadixString(16).padLeft(2 * bitSize ~/ 8, '0')).reversed);

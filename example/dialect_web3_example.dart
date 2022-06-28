@@ -1,4 +1,4 @@
-import 'package:dialect_protocol/dialect_web3.dart';
+import 'package:dialect_web3/dialect_web3.dart';
 import 'package:solana/solana.dart';
 
 import '../test/dialect_web3_test.dart';

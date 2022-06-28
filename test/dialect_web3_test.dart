@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:dialect_protocol/dialect_web3.dart';
+import 'package:dialect_web3/dialect_web3.dart';
 import 'package:solana/dto.dart';
 import 'package:solana/solana.dart';
 import 'package:test/test.dart';

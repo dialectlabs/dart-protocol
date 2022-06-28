@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:dialect_protocol/src/api/classes/member/member.dart';
-import 'package:dialect_protocol/src/utils/ed2curve/ed2curve_utils.dart';
-import 'package:dialect_protocol/src/utils/nonce_generator/nonce_generator.dart';
+import 'package:dialect_web3/src/api/classes/member/member.dart';
+import 'package:dialect_web3/src/utils/ed2curve/ed2curve_utils.dart';
+import 'package:dialect_web3/src/utils/nonce_generator/nonce_generator.dart';
 import 'package:pinenacl/x25519.dart';
 import 'package:solana/solana.dart';
 
