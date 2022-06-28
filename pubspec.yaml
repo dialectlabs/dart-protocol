@@ -1,0 +1,22 @@
+name: dialect_protocol
+description: A simple dart wrapper for Dialect's smart messaging protocol on Solana
+version: 0.1.0
+homepage: https://github.com/dialectlabs/dart-protocol
+
+environment:
+  sdk: '>=2.16.2 <3.0.0'
+
+
+# dependencies:
+#   path: ^1.8.0
+
+dev_dependencies:
+  lints: ^1.0.0
+  test: ^1.16.0
+dependencies: 
+  borsh: ^0.3.0+3
+  borsh_annotation: ^0.3.1+1
+  build_runner: ^2.1.11
+  pinenacl: ^0.3.4
+  recase: ^4.0.0
+  solana: ^0.25.0
